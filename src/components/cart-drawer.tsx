@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { X, Trash2, Plus, Minus } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
 import Image from "next/image";
@@ -11,6 +11,19 @@ interface CartDrawerProps {
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { cart, removeFromCart, updateQuantity } = useCart();
 
+  useEffect(() => {
+    const onPressEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      } else {
+        return;
+      }
+    };
+
+    window.addEventListener("keydown", onPressEscape);
+    return () => window.removeEventListener("keydown", onPressEscape);
+  }, []);
+  console.log(cart.items.length);
   return (
     <>
       <div
@@ -34,56 +47,56 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </div>
 
           <div className="flex-1 overflow-y-auto py-6 px-4 space-y-6">
-            {cart.totalQuantity > 1 ? (
-              cart.items.map((item) => (
-                <div key={item.id} className="flex gap-4">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    className="w-24 h-24 object-cover rounded-lg"
-                    // width={96}
-                    // height={96}
-                  />
-                  <div className="flex-1">
-                    <div className="flex justify-between">
-                      <div>
-                        <h3 className="font-medium">{item.name}</h3>
-                        <p className="text-sm text-gray-500">Size: 1</p>
-                      </div>
+            {/* {cart.items.length < 1 ? ( */}
+            {cart.items.map((item) => (
+              <div key={item.id} className="flex gap-4">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  className="object-cover w-24 h-24 rounded-lg"
+                  width={96}
+                  height={96}
+                />
+                <div className="flex-1">
+                  <div className="flex justify-between">
+                    <div>
+                      <h3 className="font-medium">{item.name}</h3>
+                      <p className="text-sm text-gray-500">Size: 1</p>
+                    </div>
+                    <button
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-gray-400 hover:text-red-600 transition-colors">
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <div className="flex items-center justify-between mt-4">
+                    <div className="flex items-center border rounded-lg">
                       <button
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-gray-400 hover:text-red-600 transition-colors">
-                        <Trash2 className="w-4 h-4" />
+                        onClick={() => {
+                          if (item.quantity > 1) {
+                            updateQuantity(item.id, item.quantity - 1);
+                          } else {
+                            removeFromCart(item.id);
+                          }
+                        }}
+                        className="p-2 hover:bg-gray-100 transition-colors">
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span className="w-8 text-center">{item.quantity}</span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item.id, item.quantity + 1)
+                        }
+                        className="p-2 hover:bg-gray-100 transition-colors">
+                        <Plus className="w-4 h-4" />
                       </button>
                     </div>
-                    <div className="flex items-center justify-between mt-4">
-                      <div className="flex items-center border rounded-lg">
-                        <button
-                          onClick={() => {
-                            if (item.quantity > 1) {
-                              updateQuantity(item.id, item.quantity - 1);
-                            } else {
-                              removeFromCart(item.id);
-                            }
-                          }}
-                          className="p-2 hover:bg-gray-100 transition-colors">
-                          <Minus className="w-4 h-4" />
-                        </button>
-                        <span className="w-8 text-center">{item.quantity}</span>
-                        <button
-                          onClick={() =>
-                            updateQuantity(item.id, item.quantity + 1)
-                          }
-                          className="p-2 hover:bg-gray-100 transition-colors">
-                          <Plus className="w-4 h-4" />
-                        </button>
-                      </div>
-                      <p className="font-semibold">${item.price}</p>
-                    </div>
+                    <p className="font-semibold">${item.price}</p>
                   </div>
                 </div>
-              ))
-            ) : (
+              </div>
+            ))}
+            {/* ) : (
               <div className="flex flex-col items-center justify-center space-y-4">
                 <p className="text-gray-500">Your cart is empty</p>
                 <button
@@ -92,7 +105,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   Shop Now
                 </button>
               </div>
-            )}
+            )} */}
           </div>
 
           <div className="border-t p-6 space-y-4">

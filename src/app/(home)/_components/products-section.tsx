@@ -1,6 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/project-cart";
+import { products } from "@/data";
 import { useState } from "react";
 
 const categories = [
@@ -10,63 +11,6 @@ const categories = [
   "Sneakers",
   "Joggers",
   "Limited Edition",
-];
-
-const products = [
-  {
-    id: 1,
-    name: "Air Max Pulse",
-    price: 159.99,
-    image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    category: "Sneakers",
-    rating: 4.8,
-    reviews: 128,
-  },
-  {
-    id: 2,
-    name: "Ultra Boost",
-    price: 189.99,
-    image: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2",
-    category: "Running",
-    rating: 4.9,
-    reviews: 256,
-  },
-  {
-    id: 3,
-    name: "Classic Runner",
-    price: 129.99,
-    image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2",
-    category: "Running",
-    rating: 4.7,
-    reviews: 89,
-  },
-  {
-    id: 4,
-    name: "Sport Elite",
-    price: 149.99,
-    image: "https://images.unsplash.com/photo-1539185441755-769473a23570",
-    category: "Sports",
-    rating: 4.6,
-    reviews: 167,
-  },
-  {
-    id: 5,
-    name: "Urban Style",
-    price: 169.99,
-    image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
-    category: "Casual",
-    rating: 4.8,
-    reviews: 143,
-  },
-  {
-    id: 6,
-    name: "Street Force",
-    price: 139.99,
-    image: "https://images.unsplash.com/photo-1549298916-b41d501d3772",
-    category: "Street",
-    rating: 4.7,
-    reviews: 198,
-  },
 ];
 
 const ProductsSection = () => {

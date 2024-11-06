@@ -116,6 +116,7 @@ export default function Navbar() {
               {title}
             </Link>
           ))}
+          
           <div className="pt-6 border-t border-gray-800">
             <a href="#" className="flex items-center space-x-2 py-4">
               <User className="w-5 h-5" />

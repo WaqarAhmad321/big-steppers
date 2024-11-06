@@ -1,10 +1,7 @@
 "use client";
 
 import ProductCard from "@/components/project-cart";
-import { useCart } from "@/contexts/cart-context";
-import { useCartStore } from "@/store/cart-slice";
 import { useState } from "react";
-import { useStore } from "zustand";
 
 const categories = [
   "All",

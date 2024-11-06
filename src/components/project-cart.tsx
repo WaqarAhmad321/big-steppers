@@ -3,6 +3,7 @@
 import React from "react";
 import { ShoppingBag, Heart, Star } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
+import Image from "next/image";
 
 interface ProductCardProps {
   id: number;
@@ -28,12 +29,12 @@ export default function ProductCard({
   return (
     <div className="group">
       <div className="relative overflow-hidden rounded-xl">
-        <img
+        <Image
           src={image}
           alt={name}
           className="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-500"
-          // width={400}
-          // height={400}
+          width={400}
+          height={400}
         />
         {category && (
           <span className="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-medium text-gray-900">

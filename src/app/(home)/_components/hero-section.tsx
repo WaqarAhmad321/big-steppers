@@ -1,4 +1,5 @@
 import { ArrowRight, Sparkles } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 const HeroSection = () => {
@@ -30,12 +31,12 @@ const HeroSection = () => {
             <div className="relative h-full">
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-red-600 rounded-full blur-[100px] opacity-30"></div>
               <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-600 rounded-full blur-[100px] opacity-30"></div>
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2"
                 alt="Featured Shoe"
                 className="w-full h-[600px] object-cover object-center rounded-bl-[100px] rounded-tr-[100px] shadow-2xl transform hover:scale-105 transition-transform duration-700"
-                // width={800}
-                // height={600}
+                width={800}
+                height={600}
               />
             </div>
           </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { X, Trash2, Plus, Minus } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
+import Image from "next/image";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -36,7 +37,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             {cart.totalQuantity > 1 ? (
               cart.items.map((item) => (
                 <div key={item.id} className="flex gap-4">
-                  <img
+                  <Image
                     src={item.image}
                     alt={item.name}
                     className="w-24 h-24 object-cover rounded-lg"

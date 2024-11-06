@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 import { ShoppingBag, Heart, Star } from "lucide-react";
-import Image from "next/image";
+import { useCart } from "@/contexts/cart-context";
 
 interface ProductCardProps {
+  id: number;
   name: string;
   price: number;
   image: string;
@@ -12,6 +15,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({
+  id,
   name,
   price,
   image,
@@ -19,6 +23,8 @@ export default function ProductCard({
   rating,
   reviews,
 }: ProductCardProps) {
+  const { addToCart } = useCart();
+
   return (
     <div className="group">
       <div className="relative overflow-hidden rounded-xl">
@@ -40,7 +46,9 @@ export default function ProductCard({
           </button>
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-          <button className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center space-x-2">
+          <button className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center space-x-2" onClick={() => {
+            addToCart({id: id, name: name, price: price, quantity: 1, image: image});
+          }}>
             <ShoppingBag className="w-4 h-4" />
             <span>Add to Cart</span>
           </button>

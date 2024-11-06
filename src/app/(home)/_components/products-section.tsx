@@ -1,7 +1,10 @@
 "use client";
 
 import ProductCard from "@/components/project-cart";
+import { useCart } from "@/contexts/cart-context";
+import { useCartStore } from "@/store/cart-slice";
 import { useState } from "react";
+import { useStore } from "zustand";
 
 const categories = [
   "All",
@@ -89,7 +92,7 @@ const ProductsSection = () => {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-8 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all z-[100]
+            className={`px-8 py-3 rounded-xl text-sm font-medium whitespace-nowrap transition-all
             ${
               activeCategory === category
                 ? "bg-red-600 text-white shadow-lg shadow-red-600/30 scale-105"
@@ -104,6 +107,7 @@ const ProductsSection = () => {
         {products.map((product) => (
           <ProductCard
             key={product.id}
+            id={product.id}
             name={product.name}
             price={product.price}
             image={product.image}

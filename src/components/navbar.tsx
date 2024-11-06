@@ -5,6 +5,7 @@ import { Search, ShoppingBag, User, Menu, X, Heart } from "lucide-react";
 import SearchOverlay from "@/components/search-overlay";
 import CartDrawer from "@/components/cart-drawer";
 import Link from "next/link";
+import { useCart } from "@/contexts/cart-context";
 
 const navLinks = [
   {
@@ -29,6 +30,7 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cart } = useCart();
 
   return (
     <>
@@ -80,7 +82,7 @@ export default function Navbar() {
                   <ShoppingBag className="w-4 h-4 text-gray-600" />
                 </button>
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                  2
+                  {cart.items.length}
                 </span>
               </div>
             </div>

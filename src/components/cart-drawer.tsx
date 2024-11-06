@@ -1,6 +1,6 @@
 import React from "react";
 import { X, Trash2, Plus, Minus } from "lucide-react";
-import Image from "next/image";
+import { useCart } from "@/contexts/cart-context";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -8,24 +8,7 @@ interface CartDrawerProps {
 }
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const cartItems = [
-    {
-      id: 1,
-      name: "Air Max Pulse",
-      price: 159.99,
-      image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-      quantity: 1,
-      size: "US 10",
-    },
-    {
-      id: 2,
-      name: "Ultra Boost",
-      price: 189.99,
-      image: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2",
-      quantity: 1,
-      size: "US 9.5",
-    },
-  ];
+  const { cart, removeFromCart, updateQuantity } = useCart();
 
   return (
     <>
@@ -50,48 +33,81 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </div>
 
           <div className="flex-1 overflow-y-auto py-6 px-4 space-y-6">
-            {cartItems.map((item) => (
-              <div key={item.id} className="flex gap-4">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-24 h-24 object-cover rounded-lg"
-                  // width={96}
-                  // height={96}
-                />
-                <div className="flex-1">
-                  <div className="flex justify-between">
-                    <div>
-                      <h3 className="font-medium">{item.name}</h3>
-                      <p className="text-sm text-gray-500">Size: {item.size}</p>
-                    </div>
-                    <button className="text-gray-400 hover:text-red-600 transition-colors">
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center border rounded-lg">
-                      <button className="p-2 hover:bg-gray-100 transition-colors">
-                        <Minus className="w-4 h-4" />
-                      </button>
-                      <span className="w-8 text-center">{item.quantity}</span>
-                      <button className="p-2 hover:bg-gray-100 transition-colors">
-                        <Plus className="w-4 h-4" />
+            {cart.totalQuantity > 1 ? (
+              cart.items.map((item) => (
+                <div key={item.id} className="flex gap-4">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-24 h-24 object-cover rounded-lg"
+                    // width={96}
+                    // height={96}
+                  />
+                  <div className="flex-1">
+                    <div className="flex justify-between">
+                      <div>
+                        <h3 className="font-medium">{item.name}</h3>
+                        <p className="text-sm text-gray-500">Size: 1</p>
+                      </div>
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        className="text-gray-400 hover:text-red-600 transition-colors">
+                        <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
-                    <p className="font-semibold">${item.price}</p>
+                    <div className="flex items-center justify-between mt-4">
+                      <div className="flex items-center border rounded-lg">
+                        <button
+                          onClick={() => {
+                            if (item.quantity > 1) {
+                              updateQuantity(item.id, item.quantity - 1);
+                            } else {
+                              removeFromCart(item.id);
+                            }
+                          }}
+                          className="p-2 hover:bg-gray-100 transition-colors">
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <span className="w-8 text-center">{item.quantity}</span>
+                        <button
+                          onClick={() =>
+                            updateQuantity(item.id, item.quantity + 1)
+                          }
+                          className="p-2 hover:bg-gray-100 transition-colors">
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="font-semibold">${item.price}</p>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <p className="text-gray-500">Your cart is empty</p>
+                <button
+                  onClick={onClose}
+                  className="bg-red-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-red-700 transition-colors">
+                  Shop Now
+                </button>
               </div>
-            ))}
+            )}
           </div>
 
           <div className="border-t p-6 space-y-4">
             <div className="flex items-center justify-between font-medium">
               <span>Subtotal</span>
-              <span>$349.98</span>
+              <span>
+                {cart.totalPrice > 1 ? (
+                  cart.totalPrice
+                ) : (
+                  <span className="text-gray-500 text-xl">-</span>
+                )}
+              </span>
             </div>
-            <button className="w-full bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors">
+            <button
+              disabled={cart.totalQuantity < 1 ? true : false}
+              className="w-full disabled:bg-gray-200 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
               Checkout
             </button>
           </div>

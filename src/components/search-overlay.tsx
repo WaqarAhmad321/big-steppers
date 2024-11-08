@@ -3,7 +3,6 @@ import { X } from "lucide-react";
 import { products } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
-import { CartItem } from "@/contexts/cart-context";
 import { Product } from "@/app/types";
 
 interface SearchOverlayProps {
@@ -13,7 +12,6 @@ interface SearchOverlayProps {
 
 export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState<Product[]>([]);
 
   useEffect(() => {

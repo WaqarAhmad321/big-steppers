@@ -95,7 +95,7 @@ export default function ProductDetail() {
             {/* Color Selection */}
             <div className="space-y-4">
               <h3 className="text-sm font-medium text-neutral-900">Color</h3>
-              <div className="flex space-x-4">
+              <div className="flex flex-wrap gap-4">
                 {product.colors.map((color) => (
                   <button
                     key={color}

@@ -30,12 +30,12 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
     document.addEventListener("keydown", handleEscape);
   }, [isOpen]);
 
-  const handleSearch = (e) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-
+  
     setSearchResults(
       products.filter((product) =>
-        product.name.toLowerCase().includes(e.target.value)
+        product.name.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );
   };

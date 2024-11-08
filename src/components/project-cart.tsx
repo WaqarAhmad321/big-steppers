@@ -4,6 +4,7 @@ import React from "react";
 import { ShoppingBag, Heart, Star } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProductCardProps {
   id: number;
@@ -27,7 +28,7 @@ export default function ProductCard({
   const { addToCart } = useCart();
 
   return (
-    <div className="group">
+    <Link href={`/product/${id}`} className="group">
       <div className="relative overflow-hidden rounded-xl">
         <Image
           src={image}
@@ -72,6 +73,6 @@ export default function ProductCard({
         </div>
         <p className="text-red-600 font-semibold">${price}</p>
       </div>
-    </div>
+    </Link>
   );
 }

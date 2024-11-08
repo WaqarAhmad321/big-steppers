@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Space_Grotesk, Outfit } from "next/font/google";
 import { CartProvider } from "@/contexts/cart-context";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 const SpaceGrotesk = Space_Grotesk({
   display: "swap",
@@ -31,7 +33,13 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${SpaceGrotesk.variable} ${outfit.variable} antialiased`}>
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          <Navbar />
+
+          {children}
+
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );

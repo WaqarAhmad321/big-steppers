@@ -1,5 +1,37 @@
-import React from 'react';
-import { Facebook, Twitter, Instagram, Youtube, Mail, Phone, MapPin } from 'lucide-react';
+import React from "react";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+import Link from "next/link";
+
+const quickLinks = [
+  {
+    title: "About us",
+    link: "/about",
+  },
+  {
+    title: "Contact",
+    link: "/contact",
+  },
+  {
+    title: "Size Guide",
+    link: "/size-guide",
+  },
+  {
+    title: "Shipping Info",
+    link: "/shipping",
+  },
+  {
+    title: "FAQs",
+    link: "/faqs",
+  },
+];
 
 export default function Footer() {
   return (
@@ -12,7 +44,8 @@ export default function Footer() {
               BIG<span className="text-red-600">STEPPERS</span>
             </h2>
             <p className="text-gray-400 text-sm">
-              Premium footwear for every step of your journey. Quality, comfort, and style combined.
+              Premium footwear for every step of your journey. Quality, comfort,
+              and style combined.
             </p>
             <div className="flex space-x-4">
               <a className="text-gray-400 hover:text-white transition-colors">
@@ -34,11 +67,14 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-4">
-              <li><a className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-              <li><a className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
-              <li><a className="text-gray-400 hover:text-white transition-colors">Size Guide</a></li>
-              <li><a className="text-gray-400 hover:text-white transition-colors">Shipping Info</a></li>
-              <li><a className="text-gray-400 hover:text-white transition-colors">FAQs</a></li>
+              {quickLinks.map(({ link, title }, index) => (
+                <Link
+                  href={link}
+                  key={index}
+                  className="text-gray-400 block hover:text-white transition-colors">
+                  {title}
+                </Link>
+              ))}
             </ul>
           </div>
 

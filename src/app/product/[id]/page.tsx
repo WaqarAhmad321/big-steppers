@@ -54,7 +54,7 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const { addToCart } = useCart();
-  
+    
   const handleQuantityChange = (delta: number) => {
     setSelectedQuantity(Math.max(1, selectedQuantity + delta));
   };

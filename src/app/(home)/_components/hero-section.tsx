@@ -28,7 +28,7 @@ const HeroSection = () => {
                 <ArrowRight className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
-            <div className="relative h-full">
+            <div className="relative h-full overflow-hidden">
               <div className="absolute -top-20 -left-20 w-40 h-40 bg-red-600 rounded-full blur-[100px] opacity-30"></div>
               <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-purple-600 rounded-full blur-[100px] opacity-30"></div>
               <Image

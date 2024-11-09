@@ -1,17 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Heart,
-  Share2,
-  Truck,
-  Shield,
-  RotateCcw,
-  Star,
-} from "lucide-react";
+import { Heart, Share2, Truck, Shield, RotateCcw, Star, ShoppingBag } from "lucide-react";
 import ProductSlider from "@/components/product-slider";
 import AddToCartButton from "./_components/AddToCartButton";
 import RelatedProducts from "./_components/RelatedProducts";
+import { useCart } from "@/contexts/cart-context";
 
 const product = {
   id: 1,
@@ -59,7 +53,8 @@ const product = {
 export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-
+  const { addToCart } = useCart();
+  
   const handleQuantityChange = (delta: number) => {
     setSelectedQuantity(Math.max(1, selectedQuantity + delta));
   };
@@ -93,7 +88,7 @@ export default function ProductDetail() {
               </div>
               <p className="text-neutral-600">{product.description}</p>
             </div>
-          
+
             {/* Size Selection */}
             <div className="space-y-4">
               <div className="flex justify-between items-center">
@@ -145,7 +140,26 @@ export default function ProductDetail() {
             </div>
 
             {/* Buttons */}
-            <AddToCartButton product={product} />
+            {/* <AddToCartButton product={product} /> */}
+            <div className="space-y-4">
+              <button
+                onClick={() => {
+                  addToCart({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    quantity: 1,
+                    image: product.images[0],
+                  });
+                }}
+                className="w-full bg-red-600 text-white py-4 px-6 rounded-md font-medium hover:bg-red-700 transition-all hover:scale-[1.02] flex items-center justify-center space-x-2">
+                <ShoppingBag className="h-5 w-5" />
+                <span>Add to Cart</span>
+              </button>
+              <button className="w-full bg-black text-white py-4 px-6 rounded-md font-medium hover:bg-neutral-800 transition-all hover:scale-[1.02]">
+                Buy Now
+              </button>
+            </div>
 
             {/* Actions */}
             <div className="flex space-x-4 pt-4">

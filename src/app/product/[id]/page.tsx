@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Heart, Share2, Truck, Shield, RotateCcw, Star, ShoppingBag } from "lucide-react";
 import ProductSlider from "@/components/product-slider";
-import AddToCartButton from "./_components/AddToCartButton";
 import RelatedProducts from "./_components/RelatedProducts";
 import { useCart } from "@/contexts/cart-context";
 
@@ -54,7 +53,7 @@ export default function ProductDetail() {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const { addToCart } = useCart();
-    
+
   const handleQuantityChange = (delta: number) => {
     setSelectedQuantity(Math.max(1, selectedQuantity + delta));
   };

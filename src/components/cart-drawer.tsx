@@ -23,7 +23,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     window.addEventListener("keydown", onPressEscape);
     return () => window.removeEventListener("keydown", onPressEscape);
   }, []);
-  console.log(cart.items.length);
+  
   return (
     <>
       <div

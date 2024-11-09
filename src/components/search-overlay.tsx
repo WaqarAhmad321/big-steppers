@@ -30,7 +30,7 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-  
+
     setSearchResults(
       products.filter((product) =>
         product.name.toLowerCase().includes(e.target.value.toLowerCase())
@@ -92,7 +92,8 @@ export default function SearchOverlay({ isOpen, onClose }: SearchOverlayProps) {
             <div className="flex flex-col gap-4">
               {searchResults.map((product, index) => (
                 <Link
-                  href="#"
+                  href={`/product/${product.id}`}
+                  onClick={onClose}
                   key={index}
                   className="flex justify-between items-start">
                   <div className="flex gap-4">

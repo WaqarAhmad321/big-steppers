@@ -1,62 +1,77 @@
-"use client";
-
-import React, { useState } from "react";
-import { Heart, Share2, Truck, Shield, RotateCcw, Star, ShoppingBag } from "lucide-react";
+import React from "react";
+import {
+  Heart,
+  Share2,
+  Truck,
+  Shield,
+  RotateCcw,
+  Star,
+  ShoppingBag,
+} from "lucide-react";
 import ProductSlider from "@/components/product-slider";
-import RelatedProducts from "./_components/RelatedProducts";
-import { useCart } from "@/contexts/cart-context";
+import RelatedProducts from "./related-products";
+import AddToCartButton from "./add-to-cart-button";
+import SizeSelection from "./size-selection";
+import QuantitySelection from "./quantity-selection";
+import client from "@/lib/apollo-client";
+import { GET_PRODUCT } from "@/graphql/queries/get-product";
+import { GET_CART } from "@/graphql/queries/cart-queries";
 
-const product = {
-  id: 1,
-  name: "Air Stepper Pro Max",
-  price: 199.99,
-  description:
-    "Experience unparalleled comfort and style with the Air Stepper Pro Max. Featuring our innovative cushioning technology and premium materials, these shoes are designed for those who demand both performance and aesthetics.",
-  images: [
-    "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-    "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
-    "https://images.unsplash.com/photo-1608231387042-66d1773070a5",
-    "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
-  ],
-  sizes: ["7", "8", "9", "10", "11", "12"],
-  colors: ["Red/Black", "White/Red", "Triple Black"],
-  features: [
-    "Responsive cushioning technology",
-    "Breathable mesh upper",
-    "Durable rubber outsole",
-    "Premium leather accents",
-  ],
-  reviews: [
-    {
-      id: 1,
-      author: "John D.",
-      rating: 5,
-      comment: "Best shoes I've ever owned!",
-    },
-    {
-      id: 2,
-      author: "Sarah M.",
-      rating: 4,
-      comment: "Very comfortable, but took a few days to break in.",
-    },
-    {
-      id: 3,
-      author: "Mike R.",
-      rating: 5,
-      comment: "Perfect fit and amazing style!",
-    },
-  ],
-  quantity: 10,
-};
+// const product = {
+//   id: "1",
+//   name: "Air Stepper Pro Max",
+//   price: 199.99,
+//   description:
+//     "Experience unparalleled comfort and style with the Air Stepper Pro Max. Featuring our innovative cushioning technology and premium materials, these shoes are designed for those who demand both performance and aesthetics.",
+//   images: [
+//     "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+//     "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
+//     "https://images.unsplash.com/photo-1608231387042-66d1773070a5",
+//     "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
+//   ],
+//   sizes: ["7", "8", "9", "10", "11", "12"],
+//   colors: ["Red/Black", "White/Red", "Triple Black"],
+//   features: [
+//     "Responsive cushioning technology",
+//     "Breathable mesh upper",
+//     "Durable rubber outsole",
+//     "Premium leather accents",
+//   ],
+//   reviews: [
+//     {
+//       id: 1,
+//       author: "John D.",
+//       rating: 5,
+//       comment: "Best shoes I've ever owned!",
+//     },
+//     {
+//       id: 2,
+//       author: "Sarah M.",
+//       rating: 4,
+//       comment: "Very comfortable, but took a few days to break in.",
+//     },
+//     {
+//       id: 3,
+//       author: "Mike R.",
+//       rating: 5,
+//       comment: "Perfect fit and amazing style!",
+//     },
+//   ],
+//   quantity: 10,
+// };
 
-export default function ProductDetail() {
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const { addToCart } = useCart();
+export default async function ProductDetails({ id }: { id: string }) {
+  const productId = id.split("-").pop();
 
-  const handleQuantityChange = (delta: number) => {
-    setSelectedQuantity(Math.max(1, selectedQuantity + delta));
-  };
+  const { data } = await client.query({
+    query: GET_PRODUCT,
+    variables: { id: productId },
+  });
+  const { data: cartData } = await client.query({
+    query: GET_CART,
+  });
+  console.log("cartData is: ", cartData);
+  const product = data.product;
 
   return (
     <div className="pt-16 min-h-screen">
@@ -64,7 +79,7 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="group">
-            <ProductSlider images={product.images} />
+            <ProductSlider images={product.galleryImages.nodes} />
           </div>
 
           {/* Product Info */}
@@ -73,8 +88,8 @@ export default function ProductDetail() {
               <h1 className="text-3xl font-bold text-neutral-900">
                 {product.name}
               </h1>
-              <p className="text-2xl font-semibold text-red-600">
-                ${product.price}
+              <p className="text-2xl font-medium text-red-600">
+                {product.price}
               </p>
               <div className="flex items-center space-x-2">
                 {[...Array(5)].map((_, i) => (
@@ -85,62 +100,22 @@ export default function ProductDetail() {
                 ))}
                 <span className="text-neutral-600">(128 reviews)</span>
               </div>
-              <p className="text-neutral-600">{product.description}</p>
+              {/* <p className="text-neutral-600">{product.description}</p> */}
+              <div
+                className="text-neutral-600"
+                dangerouslySetInnerHTML={{ __html: product.description }}
+              />
             </div>
 
             {/* Size Selection */}
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <h3 className="text-sm font-medium text-neutral-900">
-                  Select Size
-                </h3>
-                <button className="text-sm text-red-600 hover:text-red-700">
-                  Size Guide
-                </button>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                {product.sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`py-3 px-4 text-sm font-medium rounded-md border transition-all ${
-                      selectedSize === size
-                        ? "border-red-600 bg-red-50 text-red-600"
-                        : "border-neutral-200 text-neutral-900 hover:border-red-600"
-                    }`}>
-                    US {size}
-                  </button>
-                ))}
-              </div>
-            </div>
+            {/* <SizeSelection sizes={product.sizes} /> */}
 
             {/* Quantity */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-medium text-neutral-900">Quantity</h3>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center border rounded-md">
-                  <button
-                    onClick={() => handleQuantityChange(-1)}
-                    className="px-4 py-2 text-neutral-600 hover:text-neutral-900">
-                    -
-                  </button>
-                  <span className="px-4 py-2 border-x">{selectedQuantity}</span>
-                  <button
-                    onClick={() => handleQuantityChange(1)}
-                    className="px-4 py-2 text-neutral-600 hover:text-neutral-900">
-                    +
-                  </button>
-                </div>
-
-                <span className="text-sm text-neutral-600">
-                  {product?.quantity || 0} items in stock
-                </span>
-              </div>
-            </div>
+            {/* <QuantitySelection quantity={product.quantity} /> */}
 
             {/* Buttons */}
-            {/* <AddToCartButton product={product} /> */}
-            <div className="space-y-4">
+            <AddToCartButton productId={productId!} quantity={1} />
+            {/* <div className="space-y-4">
               <button
                 onClick={() => {
                   addToCart({
@@ -158,7 +133,7 @@ export default function ProductDetail() {
               <button className="w-full bg-black text-white py-4 px-6 rounded-md font-medium hover:bg-neutral-800 transition-all hover:scale-[1.02]">
                 Buy Now
               </button>
-            </div>
+            </div> */}
 
             {/* Actions */}
             <div className="flex space-x-4 pt-4">
@@ -166,14 +141,14 @@ export default function ProductDetail() {
                 <Heart className="h-5 w-5 fill-red-600 stroke-red-600" />
                 <span>Save</span>
               </button>
-              <button
+              {/* <button
                 onClick={() => {
                   navigator.clipboard.writeText(window.location.href);
                 }}
                 className="flex items-center space-x-2 text-neutral-600 hover:text-red-600 transition-colors">
                 <Share2 className="h-5 w-5" />
                 <span>Share</span>
-              </button>
+              </button> */}
             </div>
 
             {/* Features */}
@@ -196,7 +171,7 @@ export default function ProductDetail() {
 
         {/* Rest of the content remains the same */}
         {/* Product Features */}
-        <div className="mt-16 border-t pt-16">
+        {/* <div className="mt-16 border-t pt-16">
           <h2 className="text-2xl font-bold mb-8">Product Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {product.features.map((feature, index) => (
@@ -210,10 +185,10 @@ export default function ProductDetail() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Reviews Section */}
-        <div className="mt-16 border-t pt-16">
+        {/* <div className="mt-16 border-t pt-16">
           <h2 className="text-2xl font-bold mb-8">Customer Reviews</h2>
           <div className="space-y-8">
             {product.reviews.map((review) => (
@@ -233,7 +208,7 @@ export default function ProductDetail() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Related Products */}
         <RelatedProducts />

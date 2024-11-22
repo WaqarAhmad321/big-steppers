@@ -3,7 +3,7 @@
 import React, { createContext, useReducer, useContext, ReactNode } from "react";
 
 export type CartItem = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   quantity: number;
@@ -19,14 +19,14 @@ export type CartState = {
 export type CartAction =
   | { type: "ADD_TO_CART"; payload: CartItem }
   | { type: "REMOVE_FROM_CART"; payload: number }
-  | { type: "UPDATE_QUANTITY"; payload: { id: number; quantity: number } }
+  | { type: "UPDATE_QUANTITY"; payload: { id: string; quantity: number } }
   | { type: "CLEAR_CART" };
 
 type CartContextType = {
   cart: CartState;
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  updateQuantity: (id: number, quantity: number) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, quantity: number) => void;
   clearCart: () => void;
 };
 
@@ -99,15 +99,15 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
-
+  
   const addToCart = (item: CartItem) =>
     dispatch({ type: "ADD_TO_CART", payload: item });
-  const removeFromCart = (id: number) =>
+  const removeFromCart = (id: string) =>
     dispatch({ type: "REMOVE_FROM_CART", payload: id });
-  const updateQuantity = (id: number, quantity: number) =>
+  const updateQuantity = (id: string, quantity: number) =>
     dispatch({ type: "UPDATE_QUANTITY", payload: { id, quantity } });
   const clearCart = () => dispatch({ type: "CLEAR_CART" });
-
+  
   return (
     <CartContext.Provider
       value={{

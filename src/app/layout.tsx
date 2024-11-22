@@ -4,6 +4,9 @@ import { Space_Grotesk, Outfit } from "next/font/google";
 import { CartProvider } from "@/contexts/cart-context";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { ApolloProvider } from "@apollo/client";
+import client from "@/lib/apollo-client";
+import ApoloContextProvider from "@/components/apollo-provider";
 
 const SpaceGrotesk = Space_Grotesk({
   display: "swap",
@@ -33,13 +36,15 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${SpaceGrotesk.variable} ${outfit.variable} antialiased`}>
-        <CartProvider>
-          <Navbar />
+        <ApoloContextProvider>
+          <CartProvider>
+            <Navbar />
 
-          {children}
+            {children}
 
-          <Footer />
-        </CartProvider>
+            <Footer />
+          </CartProvider>
+        </ApoloContextProvider>
       </body>
     </html>
   );

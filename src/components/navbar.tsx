@@ -47,9 +47,11 @@ export default function Navbar() {
               )}
             </button>
 
-            <div className="flex-shrink-0 font-bold text-3xl text-gray-900 font-display tracking-tight">
+            <Link
+              href="/"
+              className="flex-shrink-0 font-bold text-3xl text-gray-900 font-display tracking-tight">
               BIG<span className="text-red-600">STEPPERS</span>
-            </div>
+            </Link>
 
             <div className="hidden md:block">
               <div className="flex items-center space-x-8">
@@ -116,7 +118,7 @@ export default function Navbar() {
               {title}
             </Link>
           ))}
-          
+
           <div className="pt-6 border-t border-gray-800">
             <a href="#" className="flex items-center space-x-2 py-4">
               <User className="w-5 h-5" />

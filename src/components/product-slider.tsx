@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -33,7 +35,7 @@ export default function ProductSlider({ images }: ProductSliderProps) {
           {images.map((image, index) => (
             <div key={index} className="w-full h-full flex-shrink-0">
               <Image
-                src={`${image}?w=1200&q=90`}
+                src={`${image.sourceUrl}?w=1200&q=90`}
                 alt={`Product ${index + 1}`}
                 className="w-full h-full object-cover transition-transform duration-200"
                 width={1200}
@@ -72,16 +74,18 @@ export default function ProductSlider({ images }: ProductSliderProps) {
               currentSlide === index ? "ring-2 ring-red-600" : ""
             }`}
             disabled={isTransitioning}>
-            <img
-              src={`${image}?w=200&q=80`}
+            <Image
+              src={`${image.sourceUrl}`}
               alt={`Thumbnail ${index + 1}`}
               className="w-full h-full object-cover"
+              width={300}
+              height={300}
             />
             {currentSlide === index && (
               <div className="absolute inset-0 bg-white/10" />
             )}
           </button>
-        ))}   
+        ))}
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ interface ProductCardProps {
   id: number;
   name: string;
   price: number;
+  slug: string;
   image: string;
   category?: string;
   rating?: number;
@@ -21,6 +22,7 @@ export default function ProductCard({
   name,
   price,
   image,
+  slug,
   category,
   rating,
   reviews,
@@ -28,7 +30,7 @@ export default function ProductCard({
   const { addToCart } = useCart();
 
   return (
-    <Link href={`/product/${id}`} className="group">
+    <Link href={`/products/${slug}-${id}`} className="group">
       <div className="relative overflow-hidden rounded-xl">
         <Image
           src={image}
@@ -71,7 +73,7 @@ export default function ProductCard({
             <span className="text-sm text-gray-500">({reviews} reviews)</span>
           )}
         </div>
-        <p className="text-red-600 font-semibold">${price}</p>
+        <p className="text-red-600 font-semibold">{price}</p>
       </div>
     </Link>
   );

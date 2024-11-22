@@ -1,18 +1,16 @@
 import ProductCard from "@/components/project-cart";
-import { products } from "@/data";
 import { GET_CART } from "@/graphql/queries/cart-queries";
 import { GET_PRODUCTS } from "@/graphql/queries/get-products";
 import client from "@/lib/apollo-client";
-import { useState } from "react";
 
-const categories = [
-  "All",
-  "Men",
-  "Women",
-  "Sneakers",
-  "Joggers",
-  "Limited Edition",
-];
+// const categories = [
+//   "All",
+//   "Men",
+//   "Women",
+//   "Sneakers",
+//   "Joggers",
+//   "Limited Edition",
+// ];
 
 const ProductsSection = async () => {
   // const [activeCategory, setActiveCategory] = useState("All");
@@ -20,11 +18,11 @@ const ProductsSection = async () => {
     query: GET_PRODUCTS,
     variables: { first: 4 },
   });
-  const { data: cart } = await client.query({
-    query: GET_CART,
-    variables: { first: 4 },
-  });
-  console.log("car", cart)
+  // const { data: cart } = await client.query({
+  //   query: GET_CART,
+  //   variables: { first: 4 },
+  // });
+
   const products = data.products.nodes;
 
   console.log(products);

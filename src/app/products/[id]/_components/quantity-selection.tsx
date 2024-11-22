@@ -1,6 +1,6 @@
 "use client";
 
-import { useCart } from "@/contexts/cart-context";
+// import { useCart } from "@/contexts/cart-context";
 import React, { useState } from "react";
 
 interface QuantitySelectionProps {
@@ -9,7 +9,7 @@ interface QuantitySelectionProps {
 
 const QuantitySelection: React.FC<QuantitySelectionProps> = ({ quantity }) => {
   const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const { addToCart } = useCart();
+  // const { addToCart } = useCart();
 
   const handleQuantityChange = (delta: number) => {
     setSelectedQuantity(Math.max(1, selectedQuantity + delta));

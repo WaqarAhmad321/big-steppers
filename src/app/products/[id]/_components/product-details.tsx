@@ -1,18 +1,18 @@
 import React from "react";
 import {
   Heart,
-  Share2,
+  // Share2,
   Truck,
   Shield,
   RotateCcw,
   Star,
-  ShoppingBag,
+  // ShoppingBag,
 } from "lucide-react";
 import ProductSlider from "@/components/product-slider";
 import RelatedProducts from "./related-products";
 import AddToCartButton from "./add-to-cart-button";
-import SizeSelection from "./size-selection";
-import QuantitySelection from "./quantity-selection";
+// import SizeSelection from "./size-selection";
+// import QuantitySelection from "./quantity-selection";
 import client from "@/lib/apollo-client";
 import { GET_PRODUCT } from "@/graphql/queries/get-product";
 import { GET_CART } from "@/graphql/queries/cart-queries";

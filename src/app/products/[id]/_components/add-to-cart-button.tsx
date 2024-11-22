@@ -1,7 +1,5 @@
 "use client";
 
-import { ProductDetails } from "@/app/types";
-import { useCart } from "@/contexts/cart-context";
 import { ADD_TO_CART, GET_CART } from "@/graphql/queries/cart-queries";
 import { useMutation } from "@apollo/client";
 import { ShoppingBag } from "lucide-react";
@@ -11,7 +9,7 @@ interface AddToCartButtonProps {
   quantity: number;
 }
 
-const decodeGlobalID = (globalID) => {
+const decodeGlobalID = (globalID: string) => {
   try {
     const decodedURL = decodeURIComponent(globalID); // Decode URL-encoded string
     const decodedString = atob(decodedURL); // Decode Base64
@@ -28,7 +26,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   quantity,
 }) => {
   const numericProductId = decodeGlobalID(productId); // Decode Base64 ID
-  const [addToCart, { data, loading, error }] = useMutation(ADD_TO_CART);
+  const [addToCart, { data, error }] = useMutation(ADD_TO_CART);
  
   if (data) console.log("data is: ", data);
 

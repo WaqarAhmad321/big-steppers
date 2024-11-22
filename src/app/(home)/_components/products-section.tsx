@@ -55,7 +55,7 @@ const ProductsSection = async () => {
       </div> */}
 
       <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-        {products.map((product) => (
+        {products.map((product: any) => (
           <ProductCard
             key={product.id}
             id={product.id}

@@ -11,7 +11,7 @@ async function App() {
 
       <FeaturesSection />
 
-      {/* <ProductsSection /> */}
+      <ProductsSection />
     </div>
   );
 }

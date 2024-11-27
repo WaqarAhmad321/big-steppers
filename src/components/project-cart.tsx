@@ -27,7 +27,7 @@ export default function ProductCard({
   reviews,
 }: ProductCardProps) {
   return (
-    <Link prefetch={true} href={`/products/${slug}-${id}`} className="group">
+    <Link href={`/products/${slug}-${id}`} className="group">
       <div className="relative overflow-hidden rounded-xl">
         <Image
           src={image}

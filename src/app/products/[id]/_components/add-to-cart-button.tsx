@@ -1,7 +1,7 @@
 "use client";
 
 import { ADD_TO_CART, GET_CART } from "@/graphql/queries/cart-queries";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ShoppingBag } from "lucide-react";
 
 interface AddToCartButtonProps {
@@ -9,37 +9,28 @@ interface AddToCartButtonProps {
   quantity: number;
 }
 
-const decodeGlobalID = (globalID: string) => {
-  try {
-    const decodedURL = decodeURIComponent(globalID); // Decode URL-encoded string
-    const decodedString = atob(decodedURL); // Decode Base64
-    const id = decodedString.split(":")[1]; // Extract numeric ID
-    return parseInt(id, 10); // Convert to integer
-  } catch (error) {
-    console.error("Error decoding ID:", globalID, error);
-    throw new Error("Invalid encoded ID. Ensure it is URL and Base64 encoded.");
-  }
-};
-
 const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   productId,
   quantity,
 }) => {
-  const numericProductId = decodeGlobalID(productId); // Decode Base64 ID
-  const [addToCart, { data, error }] = useMutation(ADD_TO_CART);
- 
-  if (data) console.log("data is: ", data);
-
-  if (error) console.log("error is: ", error);
-
   const onAddToCart = async () => {
-    await addToCart({
-      variables: {
-        productId: numericProductId,
-        quantity,
-      },
-      refetchQueries: [{ query: GET_CART }],
-    });
+    const data = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/add-item`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cart-Token":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidF9lYTE4YzU1NjRlZGNlMzFkNzg0YjI0YTg3ZDdkN2EiLCJleHAiOjE3MzI4NzQzMTIsImlzcyI6IndjXC9zdG9yZSIsImlhdCI6MTczMjcwMTUxMn0.SDi3Z-VJw_C5tz_Y0qH37Ldkjid8o_RvxUNZ5NLoHbk",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          id: productId,
+          quantity: 1,
+        }),
+      }
+    );
+    console.log("cart after: ", await data.json());
   };
 
   return (

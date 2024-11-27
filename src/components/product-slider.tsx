@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 
-interface ProductSliderProps {
-  images: string[];
-}
+// interface ProductSliderProps {
+//   images: Array[];
+// }
 
-export default function ProductSlider({ images }: ProductSliderProps) {
+export default function ProductSlider({ images }) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -35,7 +35,7 @@ export default function ProductSlider({ images }: ProductSliderProps) {
           {images.map((image, index) => (
             <div key={index} className="w-full h-full flex-shrink-0">
               <Image
-                src={`${image.sourceUrl}?w=1200&q=90`}
+                src={`${image.thumbnail}?w=1200&q=90`}
                 alt={`Product ${index + 1}`}
                 className="w-full h-full object-cover transition-transform duration-200"
                 width={1200}
@@ -75,7 +75,7 @@ export default function ProductSlider({ images }: ProductSliderProps) {
             }`}
             disabled={isTransitioning}>
             <Image
-              src={`${image.sourceUrl}`}
+              src={`${image.thumbnail}`}
               alt={`Thumbnail ${index + 1}`}
               className="w-full h-full object-cover"
               width={300}

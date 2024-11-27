@@ -14,18 +14,14 @@ import client from "@/lib/apollo-client";
 
 const ProductsSection = async () => {
   // const [activeCategory, setActiveCategory] = useState("All");
-  const { data } = await client.query({
-    query: GET_PRODUCTS,
-    variables: { first: 4 },
+  const res = await fetch(`${process.env.BASE_URL}/products`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
-  // const { data: cart } = await client.query({
-  //   query: GET_CART,
-  //   variables: { first: 4 },
-  // });
-
-  const products = data.products.nodes;
-
-  console.log(products);
+  const products = await res.json();
+  
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div id="products-section" className="text-center mb-12">
@@ -61,8 +57,8 @@ const ProductsSection = async () => {
             id={product.id}
             name={product.name}
             price={product.price}
-            image={product.image.sourceUrl}
-            category={product.productCategories.nodes[0].name}
+            image={product.images[0].thumbnail}
+            category={product.categories[0].name}
             slug={product.slug}
             // rating={product.rating}
             // reviews={product.reviews}

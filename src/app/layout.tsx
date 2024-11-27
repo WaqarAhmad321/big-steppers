@@ -36,15 +36,15 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${SpaceGrotesk.variable} ${outfit.variable} antialiased`}>
-        <ApoloContextProvider>
-          <CartProvider>
-            <Navbar />
+        {/* <ApoloContextProvider> */}
+        <CartProvider>
+          <Navbar />
 
-            {children}
+          {children}
 
-            <Footer />
-          </CartProvider>
-        </ApoloContextProvider>
+          <Footer />
+        </CartProvider>
+        {/* </ApoloContextProvider> */}
       </body>
     </html>
   );

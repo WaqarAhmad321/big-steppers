@@ -1,37 +1,6 @@
 import React from "react";
-import {
-  Facebook,
-  Twitter,
-  Instagram,
-  Youtube,
-  Mail,
-  Phone,
-  MapPin,
-} from "lucide-react";
 import Link from "next/link";
-
-const quickLinks = [
-  {
-    title: "About us",
-    link: "/about",
-  },
-  {
-    title: "Contact",
-    link: "/contact",
-  },
-  {
-    title: "Size Guide",
-    link: "/size-guide",
-  },
-  {
-    title: "Shipping Info",
-    link: "/shipping",
-  },
-  {
-    title: "FAQs",
-    link: "/faqs",
-  },
-];
+import { contactLinks, quickLinks, socialLinks } from "@/lib/links";
 
 export default function Footer() {
   return (
@@ -48,18 +17,14 @@ export default function Footer() {
               and style combined.
             </p>
             <div className="flex space-x-4">
-              <a className="text-gray-400 hover:text-white transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a className="text-gray-400 hover:text-white transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a className="text-gray-400 hover:text-white transition-colors">
-                <Youtube className="w-5 h-5" />
-              </a>
+              {socialLinks.map(({ icon: Icon, link }, index) => (
+                <Link
+                  href={link}
+                  key={index}
+                  className="text-gray-400 hover:text-white transition-colors">
+                  <Icon className="w-5 h-5" />
+                </Link>
+              ))}
             </div>
           </div>
 
@@ -82,18 +47,14 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-6">Contact Us</h3>
             <ul className="space-y-4">
-              <li className="flex items-center space-x-3 text-gray-400">
-                <Mail className="w-5 h-5" />
-                <span>support@bigsteppers.com</span>
-              </li>
-              <li className="flex items-center space-x-3 text-gray-400">
-                <Phone className="w-5 h-5" />
-                <span>+1 (555) 123-4567</span>
-              </li>
-              <li className="flex items-center space-x-3 text-gray-400">
-                <MapPin className="w-5 h-5" />
-                <span>123 Sneaker Street, NY 10001</span>
-              </li>
+              {contactLinks.map(({ icon: Icon, data }, index) => (
+                <li
+                  key={index}
+                  className="flex items-center space-x-3 text-gray-400">
+                  <Icon className="w-5 h-5" />
+                  <span>{data}</span>
+                </li>
+              ))}
             </ul>
           </div>
 

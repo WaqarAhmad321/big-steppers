@@ -12,6 +12,9 @@ const config: Config = {
         display: ["var(--font-space-grotesk)", "sans-serif"],
         body: ["var(--font-outfit)", "sans-serif"],
       },
+      transitionTimingFunction: {
+        spring: "cubic-bezier(0.87, 0, 0.13, 1)",
+      },
     },
   },
   plugins: [],

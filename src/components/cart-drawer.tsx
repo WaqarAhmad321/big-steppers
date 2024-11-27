@@ -1,7 +1,11 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { X, Trash2, Plus, Minus } from "lucide-react";
 import { useCart } from "@/contexts/cart-context";
 import Image from "next/image";
+import { useQuery } from "@apollo/client";
+import { GET_CART } from "@/graphql/queries/cart-queries";
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -23,7 +27,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
     window.addEventListener("keydown", onPressEscape);
     return () => window.removeEventListener("keydown", onPressEscape);
   }, []);
-  
+
   return (
     <>
       <div

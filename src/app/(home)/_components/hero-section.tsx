@@ -36,6 +36,7 @@ const HeroSection = () => {
                 className="w-full h-[600px] object-cover object-center rounded-bl-[100px] rounded-tr-[100px] shadow-2xl transform hover:scale-105 transition-transform duration-700"
                 width={800}
                 height={600}
+                loading="eager"
               />
             </div>
           </div>

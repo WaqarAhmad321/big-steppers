@@ -55,7 +55,7 @@ export const GET_CART = gql`
 
 export const ADD_TO_CART = gql`
   mutation AddToCart($productId: Int!, $quantity: Int!) {
-    addToCart(input: { productId: $productId, quantity: $quantity }) {
+    addToCart(input: { productId: $productId, quantity: $quantity  }) {
       cart {
         contents {
           nodes {

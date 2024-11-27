@@ -6,6 +6,7 @@ import {
   Shield,
   RotateCcw,
   Star,
+  Share2,
   // ShoppingBag,
 } from "lucide-react";
 import ProductSlider from "@/components/product-slider";
@@ -16,70 +17,25 @@ import AddToCartButton from "./add-to-cart-button";
 import client from "@/lib/apollo-client";
 import { GET_PRODUCT } from "@/graphql/queries/get-product";
 import { GET_CART } from "@/graphql/queries/cart-queries";
-
-// const product = {
-//   id: "1",
-//   name: "Air Stepper Pro Max",
-//   price: 199.99,
-//   description:
-//     "Experience unparalleled comfort and style with the Air Stepper Pro Max. Featuring our innovative cushioning technology and premium materials, these shoes are designed for those who demand both performance and aesthetics.",
-//   images: [
-//     "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
-//     "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa",
-//     "https://images.unsplash.com/photo-1608231387042-66d1773070a5",
-//     "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a",
-//   ],
-//   sizes: ["7", "8", "9", "10", "11", "12"],
-//   colors: ["Red/Black", "White/Red", "Triple Black"],
-//   features: [
-//     "Responsive cushioning technology",
-//     "Breathable mesh upper",
-//     "Durable rubber outsole",
-//     "Premium leather accents",
-//   ],
-//   reviews: [
-//     {
-//       id: 1,
-//       author: "John D.",
-//       rating: 5,
-//       comment: "Best shoes I've ever owned!",
-//     },
-//     {
-//       id: 2,
-//       author: "Sarah M.",
-//       rating: 4,
-//       comment: "Very comfortable, but took a few days to break in.",
-//     },
-//     {
-//       id: 3,
-//       author: "Mike R.",
-//       rating: 5,
-//       comment: "Perfect fit and amazing style!",
-//     },
-//   ],
-//   quantity: 10,
-// };
+import ShareButton from "./share-button";
 
 export default async function ProductDetails({ id }: { id: string }) {
   const productId = id.split("-").pop();
 
-  const { data } = await client.query({
-    query: GET_PRODUCT,
-    variables: { id: productId },
+  const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
-  const { data: cartData } = await client.query({
-    query: GET_CART,
-  });
-  console.log("cartData is: ", cartData);
-  const product = data.product;
-
+  const product = await res.json();
   return (
     <div className="pt-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="group">
-            <ProductSlider images={product.galleryImages.nodes} />
+            <ProductSlider images={product.images} />
           </div>
 
           {/* Product Info */}
@@ -100,7 +56,6 @@ export default async function ProductDetails({ id }: { id: string }) {
                 ))}
                 <span className="text-neutral-600">(128 reviews)</span>
               </div>
-              {/* <p className="text-neutral-600">{product.description}</p> */}
               <div
                 className="text-neutral-600"
                 dangerouslySetInnerHTML={{ __html: product.description }}
@@ -115,25 +70,6 @@ export default async function ProductDetails({ id }: { id: string }) {
 
             {/* Buttons */}
             <AddToCartButton productId={productId!} quantity={1} />
-            {/* <div className="space-y-4">
-              <button
-                onClick={() => {
-                  addToCart({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    quantity: 1,
-                    image: product.images[0],
-                  });
-                }}
-                className="w-full bg-red-600 text-white py-4 px-6 rounded-md font-medium hover:bg-red-700 transition-all hover:scale-[1.02] flex items-center justify-center space-x-2">
-                <ShoppingBag className="h-5 w-5" />
-                <span>Add to Cart</span>
-              </button>
-              <button className="w-full bg-black text-white py-4 px-6 rounded-md font-medium hover:bg-neutral-800 transition-all hover:scale-[1.02]">
-                Buy Now
-              </button>
-            </div> */}
 
             {/* Actions */}
             <div className="flex space-x-4 pt-4">
@@ -141,21 +77,14 @@ export default async function ProductDetails({ id }: { id: string }) {
                 <Heart className="h-5 w-5 fill-red-600 stroke-red-600" />
                 <span>Save</span>
               </button>
-              {/* <button
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                }}
-                className="flex items-center space-x-2 text-neutral-600 hover:text-red-600 transition-colors">
-                <Share2 className="h-5 w-5" />
-                <span>Share</span>
-              </button> */}
+              <ShareButton />
             </div>
 
             {/* Features */}
             <div className="border-t pt-8 space-y-4">
               <div className="flex items-center space-x-3 text-neutral-600">
                 <Truck className="h-5 w-5" />
-                <span>Free shipping on orders over $100</span>
+                <span>Free shipping on orders over Rs.1000</span>
               </div>
               <div className="flex items-center space-x-3 text-neutral-600">
                 <Shield className="h-5 w-5" />

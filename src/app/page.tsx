@@ -4,7 +4,7 @@ import HeroSection from "./(home)/_components/hero-section";
 import FeaturesSection from "./(home)/_components/features-section";
 import ProductsSection from "./(home)/_components/products-section";
 
-async function App() {
+function App() {
   return (
     <div className="min-h-screen bg-white font-body">
       <HeroSection />

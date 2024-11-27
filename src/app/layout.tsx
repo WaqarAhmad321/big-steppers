@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Space_Grotesk, Outfit } from "next/font/google";
-import { CartProvider } from "@/contexts/cart-context";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { ApolloProvider } from "@apollo/client";
@@ -37,13 +36,11 @@ export default function RootLayout({
       <body
         className={`${SpaceGrotesk.variable} ${outfit.variable} antialiased`}>
         {/* <ApoloContextProvider> */}
-        <CartProvider>
-          <Navbar />
+        <Navbar />
 
-          {children}
+        {children}
 
-          <Footer />
-        </CartProvider>
+        <Footer />
         {/* </ApoloContextProvider> */}
       </body>
     </html>

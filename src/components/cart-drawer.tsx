@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { X, Trash2, Plus, Minus } from "lucide-react";
-import { useCart } from "@/contexts/cart-context";
 import Image from "next/image";
 import { useQuery } from "@apollo/client";
 import { GET_CART } from "@/graphql/queries/cart-queries";
@@ -13,7 +12,6 @@ interface CartDrawerProps {
 }
 
 export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const { cart, removeFromCart, updateQuantity } = useCart();
 
   useEffect(() => {
     const onPressEscape = (e: KeyboardEvent) => {
@@ -51,8 +49,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           </div>
 
           <div className="flex-1 overflow-y-auto py-6 px-4 space-y-6">
-            {/* {cart.items.length < 1 ? ( */}
-            {cart.items.map((item) => (
+            {/* {cart.items.map((item) => (
               <div key={item.id} className="flex gap-4">
                 <Image
                   src={item.image}
@@ -99,7 +96,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
             {/* ) : (
               <div className="flex flex-col items-center justify-center space-y-4">
                 <p className="text-gray-500">Your cart is empty</p>
@@ -112,7 +109,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             )} */}
           </div>
 
-          <div className="border-t p-6 space-y-4">
+          {/* <div className="border-t p-6 space-y-4">
             <div className="flex items-center justify-between font-medium">
               <span>Subtotal</span>
               <span>
@@ -128,7 +125,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               className="w-full disabled:bg-gray-200 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
               Checkout
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

@@ -35,7 +35,7 @@
 //     color: true,
 //     condition: true,
 //   });
-  
+
 //   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
 //   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 //   const [selectedStyles, setSelectedStyles] = useState<string[]>([]);
@@ -43,7 +43,7 @@
 //   const [selectedConditions, setSelectedConditions] = useState<string[]>([]);
 //   const [priceRange, setPriceRange] = useState({ min: 0, max: 300 });
 //   const [sortBy, setSortBy] = useState('latest');
-  
+
 //   const [filteredProducts, setFilteredProducts] = useState(products);
 //   const [filterCounts, setFilterCounts] = useState(getFilterCounts(products));
 
@@ -77,7 +77,7 @@
 //       priceRange,
 //       sortBy,
 //     });
-    
+
 //     setFilteredProducts(filtered);
 //     setFilterCounts(getFilterCounts(filtered));
 //   }, [
@@ -93,8 +93,8 @@
 
 //   const Filters = () => (
 //     <>
-//       <FilterSection 
-//         title="Price Range" 
+//       <FilterSection
+//         title="Price Range"
 //         isOpen={openSections.price}
 //         onToggle={() => toggleSection('price')}
 //       >
@@ -107,8 +107,8 @@
 //         />
 //       </FilterSection>
 
-//       <FilterSection 
-//         title="Size" 
+//       <FilterSection
+//         title="Size"
 //         isOpen={openSections.size}
 //         onToggle={() => toggleSection('size')}
 //       >
@@ -125,7 +125,7 @@
 //         </div>
 //       </FilterSection>
 
-//       <FilterSection 
+//       <FilterSection
 //         title="Brand"
 //         isOpen={openSections.brand}
 //         onToggle={() => toggleSection('brand')}
@@ -141,7 +141,7 @@
 //         ))}
 //       </FilterSection>
 
-//       <FilterSection 
+//       <FilterSection
 //         title="Style"
 //         isOpen={openSections.style}
 //         onToggle={() => toggleSection('style')}
@@ -157,7 +157,7 @@
 //         ))}
 //       </FilterSection>
 
-//       <FilterSection 
+//       <FilterSection
 //         title="Color"
 //         isOpen={openSections.color}
 //         onToggle={() => toggleSection('color')}
@@ -175,7 +175,7 @@
 //         </div>
 //       </FilterSection>
 
-//       <FilterSection 
+//       <FilterSection
 //         title="Condition"
 //         isOpen={openSections.condition}
 //         onToggle={() => toggleSection('condition')}
@@ -267,3 +267,10 @@
 //     </div>
 //   );
 // }
+const Page = () => {
+  return (
+    <div>
+      <h1>Category Page</h1>
+    </div>
+  );
+};

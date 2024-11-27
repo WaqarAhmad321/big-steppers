@@ -49,6 +49,7 @@ export default function ProductCard({
             <Heart className="w-4 h-4" />
           </button>
         </div>
+        
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
           <button
             className="w-full bg-white text-black py-3 rounded-lg font-medium hover:bg-red-600 hover:text-white transition-colors flex items-center justify-center space-x-2"

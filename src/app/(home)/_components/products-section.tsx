@@ -14,7 +14,7 @@ import client from "@/lib/apollo-client";
 
 const ProductsSection = async () => {
   // const [activeCategory, setActiveCategory] = useState("All");
-  const res = await fetch(`${process.env.BASE_URL}/products`, {
+  const res = await fetch(`https://big-steppers.manufacs.com/wp-json/wc/store/v1/products`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

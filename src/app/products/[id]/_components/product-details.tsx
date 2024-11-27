@@ -22,7 +22,7 @@ import ShareButton from "./share-button";
 export default async function ProductDetails({ id }: { id: string }) {
   const productId = id.split("-").pop();
 
-  const res = await fetch(`${process.env.BASE_URL}/products/${productId}`, {
+  const res = await fetch(`https://big-steppers.manufacs.com/wp-json/wc/store/v1/products/${productId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

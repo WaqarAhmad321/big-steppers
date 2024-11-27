@@ -15,7 +15,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
 }) => {
   const onAddToCart = async () => {
     const data = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/cart/add-item`,
+      `https://big-steppers.manufacs.com/wp-json/wc/store/v1/cart/add-item`,
       {
         method: "POST",
         headers: {

@@ -8,7 +8,7 @@ import Image from "next/image";
 //   images: Array[];
 // }
 
-export default function ProductSlider({ images }) {
+export default function ProductSlider({ images }: any) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -32,7 +32,7 @@ export default function ProductSlider({ images }) {
         <div
           className="flex transition-transform duration-500 ease-out h-full"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-          {images.map((image, index) => (
+          {images.map((image: any, index: number) => (
             <div key={index} className="w-full h-full flex-shrink-0">
               <Image
                 src={`${image.thumbnail}?w=1200&q=90`}
@@ -60,7 +60,7 @@ export default function ProductSlider({ images }) {
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        {images.map((image, index) => (
+        {images.map((image: any, index: number) => (
           <button
             key={index}
             onClick={() => {

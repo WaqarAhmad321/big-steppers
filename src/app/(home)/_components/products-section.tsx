@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ProductCard from "@/components/project-cart";
 import { GET_CART } from "@/graphql/queries/cart-queries";
 import { GET_PRODUCTS } from "@/graphql/queries/get-products";
@@ -22,6 +24,7 @@ const ProductsSection = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      cache: "no-store"
     }
   );
   const products = await res.json();

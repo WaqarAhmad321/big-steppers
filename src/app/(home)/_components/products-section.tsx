@@ -2,6 +2,7 @@ import ProductCard from "@/components/project-cart";
 import { GET_CART } from "@/graphql/queries/cart-queries";
 import { GET_PRODUCTS } from "@/graphql/queries/get-products";
 import client from "@/lib/apollo-client";
+import { Suspense } from "react";
 
 // const categories = [
 //   "All",
@@ -57,21 +58,23 @@ const ProductsSection = async () => {
         ))}
       </div> */}
 
-      <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-        {products.map((product: any) => (
-          <ProductCard
-            key={product.id}
-            id={product.id}
-            name={product.name}
-            price={product.price}
-            image={product.images[0].thumbnail}
-            category={product.categories[0].name}
-            slug={product.slug}
-            // rating={product.rating}
-            // reviews={product.reviews}
-          />
-        ))}
-      </div>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+          {products.map((product: any) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              image={product.images[0].thumbnail}
+              category={product.categories[0].name}
+              slug={product.slug}
+              // rating={product.rating}
+              // reviews={product.reviews}
+            />
+          ))}
+        </div>
+      </Suspense>
     </div>
   );
 };

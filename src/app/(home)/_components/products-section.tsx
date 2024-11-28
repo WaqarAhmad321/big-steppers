@@ -1,19 +1,8 @@
-export const dynamic = "force-dynamic";
-
 import ProductCard from "@/components/project-cart";
 import { GET_CART } from "@/graphql/queries/cart-queries";
 import { GET_PRODUCTS } from "@/graphql/queries/get-products";
 import client from "@/lib/apollo-client";
 import { Suspense } from "react";
-
-// const categories = [
-//   "All",
-//   "Men",
-//   "Women",
-//   "Sneakers",
-//   "Joggers",
-//   "Limited Edition",
-// ];
 
 const ProductsSection = async () => {
   // const [activeCategory, setActiveCategory] = useState("All");
@@ -24,7 +13,7 @@ const ProductsSection = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store"
+      cache: "no-store",
     }
   );
   const products = await res.json();
@@ -32,6 +21,7 @@ const ProductsSection = async () => {
   if (!products) {
     return <h1>No product found!</h1>;
   }
+  console.log(products);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">

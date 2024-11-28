@@ -14,14 +14,21 @@ import client from "@/lib/apollo-client";
 
 const ProductsSection = async () => {
   // const [activeCategory, setActiveCategory] = useState("All");
-  const res = await fetch(`https://big-steppers.manufacs.com/wp-json/wc/store/v1/products`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const res = await fetch(
+    `https://big-steppers.manufacs.com/wp-json/wc/store/v1/products`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const products = await res.json();
-  
+
+  if (!products) {
+    return <h1>No product found!</h1>;
+  }
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div id="products-section" className="text-center mb-12">

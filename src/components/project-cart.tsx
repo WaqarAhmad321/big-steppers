@@ -69,7 +69,7 @@ export default function ProductCard({
             <span className="text-sm text-gray-500">({reviews} reviews)</span>
           )}
         </div>
-        <p className="text-red-600 font-semibold">{price}</p>
+        <p className="text-red-600 font-semibold">Rs. {price}</p>
       </div>
     </Link>
   );

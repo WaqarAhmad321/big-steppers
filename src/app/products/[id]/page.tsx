@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ProductDetails from "./_components/product-details";
 
 const ProductDetailPage = async ({
@@ -8,7 +8,11 @@ const ProductDetailPage = async ({
 }) => {
   const id = (await params).id;
 
-  return <ProductDetails id={id} />;
+  return (
+    <Suspense fallback={<div className="h-[600px]">Loading..</div>}>
+      <ProductDetails id={id} />
+    </Suspense>
+  );
 };
 
 export default ProductDetailPage;

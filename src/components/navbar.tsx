@@ -5,6 +5,7 @@ import { Search, ShoppingBag, User, Menu, X, Heart } from "lucide-react";
 import SearchOverlay from "@/components/search-overlay";
 import CartDrawer from "@/components/cart-drawer";
 import Link from "next/link";
+import useCartState from "@/hooks/useCartState";
 
 const navLinks = [
   {
@@ -29,6 +30,7 @@ export default function Navbar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { count } = useCartState();
 
   return (
     <>
@@ -47,7 +49,7 @@ export default function Navbar() {
 
             <Link
               href="/"
-              className="flex-shrink-0 font-bold text-3xl text-gray-900 font-display tracking-tight">
+              className="flex-shrink-0 font-bold text-6xl text-gray-900 font-heaters tracking-widest">
               BIG<span className="text-red-600">STEPPERS</span>
             </Link>
 
@@ -83,6 +85,7 @@ export default function Navbar() {
                 </button>
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                   {/* {cart.items.length} */}
+                  {count}
                 </span>
               </div>
             </div>

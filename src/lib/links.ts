@@ -11,23 +11,23 @@ import {
 const quickLinks = [
   {
     title: "About us",
-    link: "/about",
+    link: "/",
   },
   {
     title: "Contact",
-    link: "/contact",
+    link: "/",
   },
   {
     title: "Size Guide",
-    link: "/size-guide",
+    link: "/",
   },
   {
     title: "Shipping Info",
-    link: "/shipping",
+    link: "/",
   },
   {
     title: "FAQs",
-    link: "/faqs",
+    link: "/",
   },
 ];
 
@@ -53,19 +53,19 @@ const socialLinks = [
 const contactLinks = [
   {
     icon: Mail,
-    data: "support@bigsteppers.com",
+    data: "bigsteppers.shop@gmail.com",
   },
-  {
-    icon: Phone,
-    data: "support@bigsteppers.com",
-  },
+  // {
+  //   icon: Phone,
+  //   data: "support@bigsteppers.com",
+  // },
   {
     icon: MapPin,
-    data: "+1 (555) 123-4567",
+    data: "+92 303 4057572",
   },
   {
     icon: Mail,
-    data: "123 Sneaker Street, NY 10001",
+    data: "Lda Avenue Phase 1, Lahore",
   },
 ];
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Heart,
   // Share2,
@@ -18,16 +18,20 @@ import client from "@/lib/apollo-client";
 import { GET_PRODUCT } from "@/graphql/queries/get-product";
 import { GET_CART } from "@/graphql/queries/cart-queries";
 import ShareButton from "./share-button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function ProductDetails({ id }: { id: string }) {
   const productId = id.split("-").pop();
 
-  const res = await fetch(`https://big-steppers.manufacs.com/wp-json/wc/store/v1/products/${productId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const res = await fetch(
+    `https://big-steppers.manufacs.com/wp-json/wc/store/v1/products/${productId}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   const product = await res.json();
   return (
     <div className="pt-16 min-h-screen">
@@ -35,7 +39,9 @@ export default async function ProductDetails({ id }: { id: string }) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="group">
-            <ProductSlider images={product.images} />
+            <Suspense fallback={<Skeleton  />}>
+              <ProductSlider images={product.images} />
+            </Suspense>
           </div>
 
           {/* Product Info */}

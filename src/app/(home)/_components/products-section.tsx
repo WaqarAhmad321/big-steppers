@@ -17,12 +17,11 @@ const ProductsSection = async () => {
     }
   );
   const products = await res.json();
-
+  
   if (!products) {
     return <h1>No product found!</h1>;
   }
-  console.log(products);
-
+  // console.log(products[0].prices.price)
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <div id="products-section" className="text-center mb-12">
@@ -58,7 +57,7 @@ const ProductsSection = async () => {
               key={product.id}
               id={product.id}
               name={product.name}
-              price={product.price}
+              price={product.prices.price}
               image={product.images[0].thumbnail}
               category={product.categories[0].name}
               slug={product.slug}

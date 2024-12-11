@@ -1,7 +1,6 @@
 "use client";
 
 import useCartState from "@/hooks/useCartState";
-import { onAddToCart } from "@/lib/utils";
 import { ShoppingBag } from "lucide-react";
 
 interface AddToCartButtonProps {

@@ -125,7 +125,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
             <div className="flex items-center justify-between font-medium">
               <span>Subtotal</span>
               <span>
-                {cart.totals.total_price ? (
+                {cart.totals?.total_price ? (
                   `Rs. ${cart.totals.total_price}`
                 ) : (
                   <span className="text-gray-500 text-xl">-</span>

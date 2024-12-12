@@ -9,11 +9,7 @@ const ProductDetailPage = async ({
 }) => {
   const id = (await params).id;
 
-  return (
-    <Suspense fallback={<ProductDetailSkeleton />}>
-      <ProductDetails id={id} />
-    </Suspense>
-  );
+  return <ProductDetails id={id} />;
 };
 
 export default ProductDetailPage;

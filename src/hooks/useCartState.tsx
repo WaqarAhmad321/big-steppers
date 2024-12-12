@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 interface Cart {
   cart: any[];
+  cartToken: string;
   isLoading: boolean;
   count: number;
   isCartDrawerOpen: boolean;
@@ -9,6 +10,7 @@ interface Cart {
   openCartDrawer: () => void;
   closeCartDrawer: () => void;
   getCart: () => void;
+  set: (state: Partial<Cart>) => void; // For server-side hydration
   addToCart: ({
     productId,
     quantity,
@@ -26,17 +28,39 @@ interface Cart {
   }) => void;
 }
 
-const useCartState = create<Cart>((set) => ({
+const useCartState = create<Cart>((set, get) => ({
   cart: [],
   isCartDrawerOpen: false,
   isLoading: false,
   count: 0,
+  cartToken: "",
+  set: (state) => set(state),
   getCart: async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
-      cache: "no-store"
-    });
-    const data = await res.json();
-    set({ cart: data, isLoading: false });
+    try {
+      set({ isLoading: true });
+      const res = await fetch("/api/cart", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch cart");
+      }
+
+      const data = await res.json();
+      set({
+        cart: data,
+        isLoading: false,
+        count: data.items_count,
+        cartToken: res.headers.get("Cart-Token")!,
+      });
+      
+    } catch (error) {
+      set({ isLoading: false });
+      console.error("Error fetching cart:", error);
+    }
   },
   addToCart: async ({ productId, quantity = 1 }) => {
     try {
@@ -47,8 +71,7 @@ const useCartState = create<Cart>((set) => ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Cart-Token":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidF9kNGM2N2FmYmFhMjBmZDlkMGFmOGMxZDhjNmNlN2YiLCJleHAiOjE3MzQwMTY3MTQsImlzcyI6IndjXC9zdG9yZVwvdjEiLCJpYXQiOjE3MzM4NDM5MTR9.6Rv3Kd0R8yHkzvsdq6Xezcm3NSfE5BOeAnyl6RmuAaI",
+            "Cart-Token": get().cartToken,
           },
           credentials: "include",
           body: JSON.stringify({
@@ -66,7 +89,6 @@ const useCartState = create<Cart>((set) => ({
       });
     } catch (error) {
       set({ isLoading: true });
-      console.log("error", error);
     }
   },
   removeFromCart: async ({ productKey }) => {
@@ -76,8 +98,7 @@ const useCartState = create<Cart>((set) => ({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Cart-Token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidF9kNGM2N2FmYmFhMjBmZDlkMGFmOGMxZDhjNmNlN2YiLCJleHAiOjE3MzQwMTY3MTQsImlzcyI6IndjXC9zdG9yZVwvdjEiLCJpYXQiOjE3MzM4NDM5MTR9.6Rv3Kd0R8yHkzvsdq6Xezcm3NSfE5BOeAnyl6RmuAaI",
+          "Cart-Token": get().cartToken,
         },
         credentials: "include",
         body: JSON.stringify({
@@ -95,8 +116,7 @@ const useCartState = create<Cart>((set) => ({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Cart-Token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidF9kNGM2N2FmYmFhMjBmZDlkMGFmOGMxZDhjNmNlN2YiLCJleHAiOjE3MzQwMTY3MTQsImlzcyI6IndjXC9zdG9yZVwvdjEiLCJpYXQiOjE3MzM4NDM5MTR9.6Rv3Kd0R8yHkzvsdq6Xezcm3NSfE5BOeAnyl6RmuAaI",
+          "Cart-Token": get().cartToken,
         },
         credentials: "include",
         body: JSON.stringify({

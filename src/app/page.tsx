@@ -22,7 +22,7 @@ async function App() {
   // console.log("res: ", res.headers.get("Cart-Token"));
 
   return (
-    <div className="min-h-screen bg-white font-body">
+    <div className="min-h-screen overflow-y-hidden bg-white font-body">
       <HeroSection />
 
       <FeaturesSection />

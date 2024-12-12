@@ -29,7 +29,7 @@ const heatersFont = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "BigSteppers",
+  title: "Big Steppers - The best place to buy shoes online",
   description: "BigSteppers - The best place to buy shoes online",
 };
 

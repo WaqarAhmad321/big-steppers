@@ -130,7 +130,7 @@ export default function CartDrawer() {
             <button
               disabled={cart.items_count < 1 ? true : false}
               className="w-full disabled:bg-gray-200 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
-              Checkout
+              Checkout {cart.items_count}
             </button>
           </div>
         </div>

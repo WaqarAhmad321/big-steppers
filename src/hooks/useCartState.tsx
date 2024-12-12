@@ -32,7 +32,9 @@ const useCartState = create<Cart>((set) => ({
   isLoading: false,
   count: 0,
   getCart: async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
+      cache: "no-store"
+    });
     const data = await res.json();
     set({ cart: data, isLoading: false });
   },

@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import ProductDetails from "./_components/product-details";
+import ProductDetailSkeleton from "@/components/skeletons/product-detail-skeleton";
 
 const ProductDetailPage = async ({
   params,
@@ -9,7 +10,7 @@ const ProductDetailPage = async ({
   const id = (await params).id;
 
   return (
-    <Suspense fallback={<div className="h-[600px]">Loading..</div>}>
+    <Suspense fallback={<ProductDetailSkeleton />}>
       <ProductDetails id={id} />
     </Suspense>
   );

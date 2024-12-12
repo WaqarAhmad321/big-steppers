@@ -58,7 +58,7 @@ const ProductsSection = async () => {
               id={product.id}
               name={product.name}
               price={product.prices.price}
-              image={product.images[0].thumbnail}
+              images={product.images}
               category={product.categories[0].name}
               slug={product.slug}
               // rating={product.rating}

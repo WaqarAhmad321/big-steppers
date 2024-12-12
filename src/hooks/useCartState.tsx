@@ -4,12 +4,16 @@ interface Cart {
   cart: any[];
   isLoading: boolean;
   count: number;
+  isCartDrawerOpen: boolean;
+  toggleCartDrawer: () => void;
+  openCartDrawer: () => void;
+  closeCartDrawer: () => void;
   getCart: () => void;
   addToCart: ({
     productId,
     quantity,
   }: {
-    productId: string;
+    productId: number;
     quantity: number;
   }) => void;
   removeFromCart: ({ productKey }: { productKey: string }) => void;
@@ -24,7 +28,8 @@ interface Cart {
 
 const useCartState = create<Cart>((set) => ({
   cart: [],
-  isLoading: true,
+  isCartDrawerOpen: false,
+  isLoading: false,
   count: 0,
   getCart: async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`);
@@ -33,6 +38,7 @@ const useCartState = create<Cart>((set) => ({
   },
   addToCart: async ({ productId, quantity = 1 }) => {
     try {
+      set({ isLoading: true });
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/cart/add-item`,
         {
@@ -50,9 +56,14 @@ const useCartState = create<Cart>((set) => ({
         }
       );
       const data = await res.json();
-      set({ cart: data, isLoading: false, count: data.items_count });
-      console.log("cart after: ", data);
+      set({
+        cart: data,
+        isLoading: false,
+        count: data.items_count,
+        isCartDrawerOpen: true,
+      });
     } catch (error) {
+      set({ isLoading: true });
       console.log("error", error);
     }
   },
@@ -94,6 +105,15 @@ const useCartState = create<Cart>((set) => ({
     );
     const data = await res.json();
     set({ cart: data, isLoading: false, count: data.items_count });
+  },
+  toggleCartDrawer: () => {
+    set((state) => ({ isCartDrawerOpen: !state.isCartDrawerOpen }));
+  },
+  openCartDrawer: () => {
+    set({ isCartDrawerOpen: true });
+  },
+  closeCartDrawer: () => {
+    set({ isCartDrawerOpen: false });
   },
 }));
 

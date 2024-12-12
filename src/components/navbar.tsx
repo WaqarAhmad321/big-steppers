@@ -27,10 +27,9 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const { count, openCartDrawer } = useCartState();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { count } = useCartState();
 
   return (
     <>
@@ -79,7 +78,7 @@ export default function Navbar() {
 
               <div className="relative">
                 <button
-                  onClick={() => setIsCartOpen(true)}
+                  onClick={openCartDrawer}
                   className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
                   <ShoppingBag className="w-4 h-4 text-gray-600" />
                 </button>
@@ -132,7 +131,7 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+      <CartDrawer />
     </>
   );
 }

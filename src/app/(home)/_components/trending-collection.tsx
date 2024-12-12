@@ -1,4 +1,5 @@
 import { ChevronRight } from "lucide-react";
+import Image from "next/image";
 import React from "react";
 
 const collections = [
@@ -36,10 +37,12 @@ const TrendingCollection = () => {
             key={collection.title}
             className="group relative overflow-hidden rounded-3xl cursor-pointer">
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-black/0 z-10" />
-            <img
+            <Image
               src={collection.image}
               alt={collection.title}
               className="w-full h-[500px] object-cover transform group-hover:scale-110 transition-transform duration-700"
+              width={1600}
+              height={1600}
             />
             <div className="absolute inset-0 z-20 p-8 flex flex-col justify-end">
               <h3 className="text-2xl font-bold text-white font-display mb-2">

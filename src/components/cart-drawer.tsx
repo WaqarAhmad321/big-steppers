@@ -5,12 +5,7 @@ import CartOverlay from "./cart-overlay";
 import useCartState from "@/hooks/useCartState";
 import Image from "next/image";
 
-interface CartDrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
+export default function CartDrawer() {
   // useEffect(() => {
   //   const onPressEscape = (e: KeyboardEvent) => {
   //     if (e.key === "Escape") {
@@ -38,7 +33,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   // );
   // const cart = await res.json();
 
-  const { cart, getCart, removeFromCart, updateCart } = useCartState();
+  const { cart, getCart, removeFromCart, updateCart, isCartDrawerOpen, closeCartDrawer } = useCartState();
 
   useEffect(() => {
     getCart();
@@ -46,12 +41,12 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
   return (
     <>
-      <CartOverlay isOpen={isOpen} onClose={onClose} />
+      <CartOverlay />
       <div
         className={`fixed top-0 right-0 h-full w-full md:w-[400px] bg-white shadow-2xl transform transition-transform duration-300 ease-out z-50
-          ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
+          ${isCartDrawerOpen ? "translate-x-0" : "translate-x-full"}`}>
         <div className="flex flex-col h-full">
-          <CartHeader onClose={onClose} />
+          <CartHeader onClose={closeCartDrawer} />
 
           <div className="flex-1 overflow-y-auto py-6 px-4 space-y-6">
             {cart.items_count > 0 ? (
@@ -113,7 +108,7 @@ export default function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <div className="flex flex-col items-center justify-center space-y-4">
                 <p className="text-gray-500">Your cart is empty</p>
                 <button
-                  onClick={onClose}
+                  onClick={closeCartDrawer}
                   className="bg-red-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-red-700 transition-colors">
                   Shop Now
                 </button>

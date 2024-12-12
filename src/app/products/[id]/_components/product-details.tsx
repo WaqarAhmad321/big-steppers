@@ -1,19 +1,8 @@
 import React, { Suspense } from "react";
-import {
-  Heart,
-  // Share2,
-  Truck,
-  Shield,
-  RotateCcw,
-  Star,
-  Share2,
-  // ShoppingBag,
-} from "lucide-react";
+import { Heart, Truck, Shield, RotateCcw, Star, Share2 } from "lucide-react";
 import ProductSlider from "@/components/product-slider";
 import RelatedProducts from "./related-products";
 import AddToCartButton from "./add-to-cart-button";
-// import SizeSelection from "./size-selection";
-// import QuantitySelection from "./quantity-selection";
 import client from "@/lib/apollo-client";
 import { GET_PRODUCT } from "@/graphql/queries/get-product";
 import { GET_CART } from "@/graphql/queries/cart-queries";
@@ -33,13 +22,14 @@ export default async function ProductDetails({ id }: { id: string }) {
     }
   );
   const product = await res.json();
+
   return (
     <div className="pt-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="group">
-            <Suspense fallback={<Skeleton  />}>
+            <Suspense fallback={<Skeleton />}>
               <ProductSlider images={product.images} />
             </Suspense>
           </div>
@@ -75,7 +65,7 @@ export default async function ProductDetails({ id }: { id: string }) {
             {/* <QuantitySelection quantity={product.quantity} /> */}
 
             {/* Buttons */}
-            <AddToCartButton productId={productId!} quantity={1} />
+            <AddToCartButton productId={product.id} quantity={1} />
 
             {/* Actions */}
             <div className="flex space-x-4 pt-4">

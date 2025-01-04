@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 
 interface SizeSelectionProps {
-    sizes: string[];
+  sizes: string[];
 }
-const SizeSelection: React.FC<SizeSelectionProps> = ({ sizes }) => {
+const SizeSelection: React.FC<SizeSelectionProps> = ({
+  sizes = ["Euro 39", "Euro 40", "Euro 43"],
+}) => {
   const [selectedSize, setSelectedSize] = useState("");
 
   return (
@@ -26,7 +28,7 @@ const SizeSelection: React.FC<SizeSelectionProps> = ({ sizes }) => {
                 ? "border-red-600 bg-red-50 text-red-600"
                 : "border-neutral-200 text-neutral-900 hover:border-red-600"
             }`}>
-            US {size}
+            {size}
           </button>
         ))}
       </div>

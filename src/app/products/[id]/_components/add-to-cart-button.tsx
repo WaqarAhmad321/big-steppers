@@ -2,6 +2,7 @@
 
 import useCartState from "@/hooks/useCartState";
 import { ShoppingBag } from "lucide-react";
+import { useState } from "react";
 
 interface AddToCartButtonProps {
   productId: number;
@@ -12,17 +13,23 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   productId,
   quantity,
 }) => {
-  const { isLoading, addToCart } = useCartState();
+  const { addToCart } = useCartState();
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   return (
     <div className="space-y-4">
       <button
         onClick={async () => {
-          addToCart({ productId, quantity });
+          setIsAddingToCart(true);
+          try {
+            await addToCart({ productId, quantity });
+          } finally {
+            setIsAddingToCart(false);
+          }
         }}
-        disabled={isLoading}
-        className="w-full bg-red-600 text-white py-4 px-6 rounded-md font-medium hover:bg-red-700 transition-all hover:scale-[1.02] flex items-center justify-center">
-        {isLoading ? (
+        disabled={isAddingToCart}
+        className="w-full bg-red-600 text-white py-4 px-6 rounded-md font-medium hover:bg-red-700 transition-all hover:scale-[1.02] flex items-center justify-center uppercase">
+        {isAddingToCart ? (
           <div
             className="animate-spin inline-block size-6 border-[3px] border-current border-t-transparent text-white rounded-full"
             role="status"
@@ -34,7 +41,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
           </span>
         )}
       </button>
-      <button className="w-full bg-black text-white py-4 px-6 rounded-md font-medium hover:bg-neutral-800 transition-all hover:scale-[1.02]">
+      <button className="w-full bg-black text-white py-4 px-6 rounded-md font-medium hover:bg-neutral-800 transition-all hover:scale-[1.02] uppercase">
         Buy Now
       </button>
     </div>

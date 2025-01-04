@@ -3,11 +3,9 @@ import { Heart, Truck, Shield, RotateCcw, Star, Share2 } from "lucide-react";
 import ProductSlider from "@/components/product-slider";
 import RelatedProducts from "./related-products";
 import AddToCartButton from "./add-to-cart-button";
-import client from "@/lib/apollo-client";
-import { GET_PRODUCT } from "@/graphql/queries/get-product";
-import { GET_CART } from "@/graphql/queries/cart-queries";
 import ShareButton from "./share-button";
 import { Skeleton } from "@/components/ui/skeleton";
+import SizeSelection from "./size-selection";
 
 export default async function ProductDetails({ id }: { id: string }) {
   const productId = id.split("-").pop();
@@ -37,7 +35,7 @@ export default async function ProductDetails({ id }: { id: string }) {
           {/* Product Info */}
           <div className="space-y-8">
             <div className="space-y-4">
-              <h1 className="text-3xl font-bold text-neutral-900">
+              <h1 className="text-3xl font-bold text-neutral-900 uppercase">
                 {product.name}
               </h1>
               <p className="text-2xl font-medium text-red-600">
@@ -53,13 +51,13 @@ export default async function ProductDetails({ id }: { id: string }) {
                 <span className="text-neutral-600">(128 reviews)</span>
               </div>
               <div
-                className="text-neutral-600"
+                className="text-neutral-600 leading-8"
                 dangerouslySetInnerHTML={{ __html: product.description }}
               />
             </div>
 
             {/* Size Selection */}
-            {/* <SizeSelection sizes={product.sizes} /> */}
+            <SizeSelection sizes={product.sizes} />
 
             {/* Quantity */}
             {/* <QuantitySelection quantity={product.quantity} /> */}
@@ -80,7 +78,7 @@ export default async function ProductDetails({ id }: { id: string }) {
             <div className="border-t pt-8 space-y-4">
               <div className="flex items-center space-x-3 text-neutral-600">
                 <Truck className="h-5 w-5" />
-                <span>Free shipping on orders over Rs.1000</span>
+                <span>Free shipping on orders over Rs.5000</span>
               </div>
               <div className="flex items-center space-x-3 text-neutral-600">
                 <Shield className="h-5 w-5" />

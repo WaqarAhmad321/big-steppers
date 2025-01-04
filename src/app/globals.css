@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+  ::selection {
+    background-color: #eb0808;
+    color: #fff;
+  }
+}
 @layer components {
   .hide-scrollbar {
     scrollbar-width: none;

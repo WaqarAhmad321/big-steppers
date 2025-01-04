@@ -60,7 +60,7 @@ const useCartState = create<Cart>((set, get) => ({
   },
   addToCart: async ({ productId, quantity = 1 }) => {
     try {
-      set({ isLoading: true });
+      // set({ isLoading: true });
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/cart/add-item`,
         {
@@ -80,12 +80,13 @@ const useCartState = create<Cart>((set, get) => ({
       const data = await res.json();
       set({
         cart: data,
-        isLoading: false,
+        // isLoading: false,
         count: data.items_count,
         isCartDrawerOpen: true,
       });
     } catch (error) {
-      set({ isLoading: true });
+      // set({ isLoading: true });
+      console.log("Error adding to cart:", error);
     }
   },
   removeFromCart: async ({ productKey }) => {

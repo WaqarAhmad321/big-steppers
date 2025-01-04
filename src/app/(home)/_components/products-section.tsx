@@ -13,7 +13,6 @@ const ProductsSection = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      // cache: "no-store",
     }
   );
   const products = await res.json();
@@ -52,17 +51,17 @@ const ProductsSection = async () => {
 
       <Suspense fallback={<h1>Loading...</h1>}>
         <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-          {products.map((product: any) => (
+          {products.map((product: any, index: number) => (
             <ProductCard
-              key={product.id}
+              key={product.index}
               id={product.id}
               name={product.name}
               price={product.prices.price}
               images={product.images}
               category={product.categories[0].name}
               slug={product.slug}
-              // rating={product.rating}
-              // reviews={product.reviews}
+              rating={5}
+              reviews={50}
             />
           ))}
         </div>

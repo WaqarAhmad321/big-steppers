@@ -47,7 +47,7 @@ export default function ProductCard({
 
       <Link href={`/products/${slug}-${id}`} className="group">
         <div className="mt-4 space-y-2">
-          <h3 className="text-lg font-medium text-gray-900 font-display">
+          <h3 className="text-lg uppercase font-medium text-gray-900 font-display">
             {name}
           </h3>
           <div className="flex items-center space-x-2">

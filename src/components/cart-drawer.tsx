@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { Minus, Plus, Trash2, X } from "lucide-react";
 import CartHeader from "./cart-header";
@@ -45,6 +47,18 @@ export default function CartDrawer() {
   useEffect(() => {
     getCart();
   }, [getCart]);
+
+  useEffect(() => {
+    if (isCartDrawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isCartDrawerOpen]);
 
   return (
     <>
@@ -136,8 +150,8 @@ export default function CartDrawer() {
             </div>
             <button
               disabled={cart.items_count < 1 ? true : false}
-              className="w-full disabled:bg-red-600/30 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
-              Checkout {cart.items_count}
+              className="w-full uppercase disabled:bg-red-600/30 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
+              Check out
             </button>
           </div>
         </div>

@@ -17,7 +17,7 @@ const ProductsSection = async () => {
   );
   const products = await res.json();
   
-  if (!products) {
+  if (!products || products.length === 0 || products === undefined || products === null || products === "") {
     return <h1>No product found!</h1>;
   }
   // console.log(products[0].prices.price)

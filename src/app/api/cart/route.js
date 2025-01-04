@@ -9,17 +9,16 @@ export async function GET(request) {
         headers: {
           "Content-Type": "application/json",
         },
-        cache: "no-store",
+        // cache: "no-store",
       }
     );
     const data = await apiRes.json();
-    
+
     return NextResponse.json(data, {
       headers: {
         "Cart-Token": apiRes.headers.get("Cart-Token"),
       },
     });
-    
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },

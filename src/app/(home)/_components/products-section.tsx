@@ -13,7 +13,7 @@ const ProductsSection = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
+      // cache: "no-store",
     }
   );
   const products = await res.json();

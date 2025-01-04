@@ -5,6 +5,7 @@ import FeaturesSection from "./(home)/_components/features-section";
 import ProductsSection from "./(home)/_components/products-section";
 import TrendingCollection from "./(home)/_components/trending-collection";
 import useCartState from "@/hooks/useCartState";
+import { cookies } from "next/headers";
 
 async function App() {
   // const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/cart`, {
@@ -20,7 +21,6 @@ async function App() {
   //   cartToken: res.headers.get("Cart-Token")!,
   // });
   // console.log("res: ", res.headers.get("Cart-Token"));
-
   return (
     <div className="min-h-screen overflow-y-hidden bg-white font-body">
       <HeroSection />

@@ -41,9 +41,8 @@ export default function ProductCard({
           </button>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+      
           <AddToCartCardButton productId={id} quantity={1} />
-        </div>
       </div>
 
       <Link href={`/products/${slug}-${id}`} className="group">

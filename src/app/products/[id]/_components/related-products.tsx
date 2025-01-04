@@ -9,7 +9,6 @@ const RelatedProducts = async () => {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-store",
     }
   );
   const products = await res.json();

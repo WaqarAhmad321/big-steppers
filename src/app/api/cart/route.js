@@ -13,12 +13,13 @@ export async function GET(request) {
       }
     );
     const data = await apiRes.json();
-
+    
     return NextResponse.json(data, {
       headers: {
         "Cart-Token": apiRes.headers.get("Cart-Token"),
       },
     });
+    
   } catch (error) {
     return NextResponse.json(
       { error: "Internal Server Error" },

@@ -33,7 +33,14 @@ export default function CartDrawer() {
   // );
   // const cart = await res.json();
 
-  const { cart, getCart, removeFromCart, updateCart, isCartDrawerOpen, closeCartDrawer } = useCartState();
+  const {
+    cart,
+    getCart,
+    removeFromCart,
+    updateCart,
+    isCartDrawerOpen,
+    closeCartDrawer,
+  } = useCartState();
 
   useEffect(() => {
     getCart();
@@ -91,7 +98,7 @@ export default function CartDrawer() {
                         <button
                           onClick={() =>
                             updateCart({
-                              productKey: item.id,
+                              productKey: item.key,
                               quantity: item.quantity + 1,
                             })
                           }
@@ -129,7 +136,7 @@ export default function CartDrawer() {
             </div>
             <button
               disabled={cart.items_count < 1 ? true : false}
-              className="w-full disabled:bg-gray-200 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
+              className="w-full disabled:bg-red-600/30 bg-red-600 text-white py-3 rounded-lg font-medium hover:bg-red-700 transition-colors disabled:cursor-not-allowed">
               Checkout {cart.items_count}
             </button>
           </div>

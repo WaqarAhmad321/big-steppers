@@ -38,25 +38,21 @@ const useCartState = create<Cart>((set, get) => ({
   getCart: async () => {
     try {
       set({ isLoading: true });
-      const res = await fetch("/api/cart", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch("/api/cart");
 
       if (!res.ok) {
         throw new Error("Failed to fetch cart");
       }
-
       const data = await res.json();
-      set({
-        cart: data,
-        isLoading: false,
-        count: data.items_count,
-        cartToken: res.headers.get("Cart-Token")!,
-      });
-      
+
+      if (data) {
+        set({
+          cart: data,
+          isLoading: false,
+          count: data.items_count,
+          cartToken: res.headers.get("Cart-Token")!,
+        });
+      }
     } catch (error) {
       set({ isLoading: false });
       console.error("Error fetching cart:", error);
@@ -71,7 +67,8 @@ const useCartState = create<Cart>((set, get) => ({
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Cart-Token": get().cartToken,
+            "Cart-Token":
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidF80MWI2YmRmZDRkNDFhZTA1Yzc3OTg5N2E0ODY5Y2MiLCJleHAiOjE3MzYxOTA3NDIsImlzcyI6IndjXC9zdG9yZVwvdjEiLCJpYXQiOjE3MzYwMTc5NDJ9.GrPzVa5L9XgC87KPzBWC6Zf2l0Aru9wszum1mOYSN7Y",
           },
           credentials: "include",
           body: JSON.stringify({

@@ -1,5 +1,7 @@
 "use client";
 
+import useCartState from "@/hooks/useCartState";
+import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,6 +18,7 @@ const ProductCardImageSlider = ({
   slug,
   id,
 }: ProductCardImageSliderProps) => {
+  const { isLoading } = useCartState();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -44,7 +47,12 @@ const ProductCardImageSlider = ({
               <Image
                 src={`${image.thumbnail}`}
                 alt={`Product ${index + 1}`}
-                className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500"
+                className={cn(
+                  "w-full h-full object-cover transform hover:scale-110 transition-transform duration-500",
+                  {
+                    "scale-110": isLoading,
+                  }
+                )}
                 width={400}
                 height={400}
               />
@@ -55,13 +63,19 @@ const ProductCardImageSlider = ({
 
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-white"
+        className={cn(
+          "absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-white",
+          { "opacity-100": isLoading }
+        )}
         disabled={isTransitioning}>
         <ChevronLeft className="h-6 w-6 text-neutral-600" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-white"
+        className={cn(
+          "absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity shadow-lg hover:bg-white",
+          { "opacity-100": isLoading }
+        )}
         disabled={isTransitioning}>
         <ChevronRight className="h-6 w-6 text-neutral-600" />
       </button>

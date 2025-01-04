@@ -12,7 +12,7 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   productId,
   quantity,
 }) => {
-  const { addToCart, isLoading } = useCartState();
+  const { isLoading, addToCart } = useCartState();
 
   return (
     <div className="space-y-4">

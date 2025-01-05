@@ -28,9 +28,9 @@ async function App() {
       <FeaturesSection />
       <TrendingCollection />
 
-      <Suspense fallback={<h1>Loading..</h1>}>
+      {/* <Suspense fallback={<h1>Loading..</h1>}>
         <ProductsSection />
-      </Suspense>
+      </Suspense> */}
     </div>
   );
 }
